@@ -1,13 +1,15 @@
+import { parse } from "path";
 import React, { Component } from "react";
 
 export default class Body extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      principal: "5000000",
-      rate: "10.5",
-      time: "240",
+      principal: "250000",
+      rate: "10",
+      time: "3",
       totalEmi: "",
+      tableData: [],
     };
   }
   setPrincipal = (event) => {
@@ -25,17 +27,49 @@ export default class Body extends Component {
     let monthlyRate = this.state.rate / 1200;
     let numerator = Math.pow(1 + monthlyRate, this.state.time);
     let denumerator = numerator - 1;
-    let e = parseFloat(
-      this.state.principal * monthlyRate * (numerator / denumerator)
-    ).toFixed(0);
+    let e = this.state.principal * monthlyRate * (numerator / denumerator);
+    //
+    let tableData = [];
+    let interest = monthlyRate * this.state.principal;
+    let principalPaid = e - interest;
+    let remainingBalance = this.state.principal - principalPaid;
+    tableData.push({
+      interest: parseFloat(interest).toFixed(2),
+      principal: parseFloat(principalPaid).toFixed(2),
+      remainingBalance: parseFloat(remainingBalance).toFixed(2),
+      totalPaid: parseFloat(e).toFixed(2),
+    });
+    for (let i = 1; i < this.state.time; i++) {
+      interest = monthlyRate * remainingBalance;
+      principalPaid = e - interest;
+      remainingBalance = remainingBalance - principalPaid;
+      tableData.push({
+        interest: parseFloat(interest).toFixed(2),
+        principal: parseFloat(principalPaid).toFixed(2),
+        remainingBalance: parseFloat(remainingBalance).toFixed(2),
+        totalPaid: parseFloat(e).toFixed(2),
+      });
+    }
     this.setState({
-      totalEmi: e,
+      totalEmi: parseFloat(e).toFixed(2),
+      tableData: tableData,
     });
   };
   componentDidMount() {
     this.calculateEmi();
   }
   render() {
+    const tableItem = this.state.tableData.map((el, i) => {
+      return (
+        <tr key={i}>
+          <td>{i + 1}</td>
+          <td>{Math.round(el.principal)}</td>
+          <td>{Math.round(el.interest)}</td>
+          <td>{Math.round(el.totalPaid)}</td>
+          <td>{Math.abs(Math.round(el.remainingBalance))}</td>
+        </tr>
+      );
+    });
     return (
       <div>
         <section className="form-container py-3">
@@ -119,19 +153,9 @@ export default class Body extends Component {
                       <th>Interest</th>
                       <th>Total Payment</th>
                       <th>Balance</th>
-                      <th>Load Paid</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>1000</td>
-                      <td>100</td>
-                      <td>100</td>
-                      <td>100</td>
-                      <td>100</td>
-                    </tr>
-                  </tbody>
+                  <tbody>{tableItem}</tbody>
                 </table>
               </div>
             </div>
