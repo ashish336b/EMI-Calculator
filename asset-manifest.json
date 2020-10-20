@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/EMI-Calculator/static/css/main.a8d5a098.chunk.css",
+    "main.js": "/EMI-Calculator/static/js/main.1d634010.chunk.js",
+    "main.js.map": "/EMI-Calculator/static/js/main.1d634010.chunk.js.map",
+    "runtime-main.js": "/EMI-Calculator/static/js/runtime-main.0bd4705e.js",
+    "runtime-main.js.map": "/EMI-Calculator/static/js/runtime-main.0bd4705e.js.map",
+    "static/css/2.6414bb7b.chunk.css": "/EMI-Calculator/static/css/2.6414bb7b.chunk.css",
+    "static/js/2.99408c1a.chunk.js": "/EMI-Calculator/static/js/2.99408c1a.chunk.js",
+    "static/js/2.99408c1a.chunk.js.map": "/EMI-Calculator/static/js/2.99408c1a.chunk.js.map",
+    "index.html": "/EMI-Calculator/index.html",
+    "precache-manifest.098af046bca3dd29fa5adfba005d43d4.js": "/EMI-Calculator/precache-manifest.098af046bca3dd29fa5adfba005d43d4.js",
+    "service-worker.js": "/EMI-Calculator/service-worker.js",
+    "static/css/2.6414bb7b.chunk.css.map": "/EMI-Calculator/static/css/2.6414bb7b.chunk.css.map",
+    "static/css/main.a8d5a098.chunk.css.map": "/EMI-Calculator/static/css/main.a8d5a098.chunk.css.map",
+    "static/js/2.99408c1a.chunk.js.LICENSE.txt": "/EMI-Calculator/static/js/2.99408c1a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0bd4705e.js",
+    "static/css/2.6414bb7b.chunk.css",
+    "static/js/2.99408c1a.chunk.js",
+    "static/css/main.a8d5a098.chunk.css",
+    "static/js/main.1d634010.chunk.js"
+  ]
+}
