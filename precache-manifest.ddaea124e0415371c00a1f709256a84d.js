@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "679cb41c1faefdd7f32c83edda0be77e",
+    "revision": "2ea0178233eb2d44dcff09eec04413a0",
     "url": "/EMI-Calculator/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/EMI-Calculator/static/css/2.6414bb7b.chunk.css"
   },
   {
-    "revision": "24d8c061fe0199267d01",
+    "revision": "802cab3a54bc5b944062",
     "url": "/EMI-Calculator/static/css/main.f4e4fb29.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/EMI-Calculator/static/js/2.531ea2f1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "24d8c061fe0199267d01",
-    "url": "/EMI-Calculator/static/js/main.bfb5e956.chunk.js"
+    "revision": "802cab3a54bc5b944062",
+    "url": "/EMI-Calculator/static/js/main.c13449b6.chunk.js"
   },
   {
     "revision": "cb1e71dba7b12867ab69",
