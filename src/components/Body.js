@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import numberFormat from "../helper/numberFormat";
+import pie from "chart.js";
 export default class Body extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +12,7 @@ export default class Body extends Component {
       tableData: [],
       totalInterestPayable: "0",
       totalPayment: "0",
+      interestPercentage: "",
     };
   }
   setPrincipal = (event) => {
@@ -52,15 +54,43 @@ export default class Body extends Component {
       });
     }
     let totalInterestPayable = tableData.reduce((acc, curr) => {
-      console.log(curr.interest);
       return acc + Number(curr.interest);
     }, 0);
-    console.log(totalInterestPayable);
-    this.setState({
-      totalEmi: parseFloat(e).toFixed(2),
-      tableData: tableData,
-      totalInterestPayable: totalInterestPayable,
-    });
+    let interestPercentage =
+      (totalInterestPayable /
+        (Number(this.state.principal) + totalInterestPayable)) *
+      100;
+    this.setState(
+      {
+        totalEmi: parseFloat(e).toFixed(2),
+        tableData: tableData,
+        totalInterestPayable: totalInterestPayable,
+        interestPercentage: parseFloat(interestPercentage).toFixed(2),
+      },
+      () => {
+        var ctx = document.getElementById("pieChart");
+        if (window.chart) {
+          window.chart.destroy();
+        }
+        window.chart = new pie(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Interest", "Principal"],
+            datasets: [
+              {
+                backgroundColor: ["#ED8C2B", "#88A825"],
+                borderColor: "#ffffff",
+                data: [
+                  this.state.interestPercentage,
+                  100 - this.state.interestPercentage,
+                ],
+              },
+            ],
+          },
+          options: {},
+        });
+      }
+    );
   };
   componentDidMount() {
     this.calculateEmi();
@@ -70,10 +100,10 @@ export default class Body extends Component {
       return (
         <tr key={i}>
           <td>{i + 1}</td>
-          <td>{Math.round(el.principal)}</td>
-          <td>{Math.round(el.interest)}</td>
-          <td>{Math.round(el.totalPaid)}</td>
-          <td>{Math.abs(Math.round(el.remainingBalance))}</td>
+          <td>{numberFormat(el.principal)}</td>
+          <td>{numberFormat(el.interest)}</td>
+          <td>{numberFormat(el.totalPaid)}</td>
+          <td>{numberFormat(el.remainingBalance)}</td>
         </tr>
       );
     });
@@ -155,6 +185,7 @@ export default class Body extends Component {
                               {numberFormat(this.state.totalInterestPayable)}
                             </p>
                           </div>
+
                           <div className="border p-1 m-3">
                             <h5 className="text-center">Total Payment</h5>
                             <p className="text-center">
@@ -177,14 +208,30 @@ export default class Body extends Component {
                 <div className="card">
                   <div className="card-body">
                     <h5 className="card-title text-center font-weight-bold text-primary">
+                      Pie Chart
+                    </h5>
+                    <div className="chart-container p-3">
+                      <div className="chart-container">
+                        <canvas id="pieChart" width="400" height="100"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row justify-content-center pt-3">
+              <div className="col-lg-10">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title text-center font-weight-bold text-primary">
                       Loan Amortization Table
                     </h5>
                     <div className="container-fluid p-3">
-                      <table className="table table-bordered">
+                      <table className="table table-bordered table-striped table-sm">
                         <thead>
                           <tr>
                             <th>Month</th>
-                            <th>Principal</th>
+                            <th className="bg-danger text-white">Principal</th>
                             <th>Interest</th>
                             <th>Total Payment</th>
                             <th>Balance</th>

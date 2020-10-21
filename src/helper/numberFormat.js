@@ -1,10 +1,10 @@
 const numberFormat = (number) => {
   number = (number + "").replace(",", "").replace(" ", "");
-  var n = !isFinite(+number) ? 0 : +number,
+  let n = !isFinite(+number) ? 0 : +number,
     prec = 2,
     s = "",
     toFixedFix = (n, prec) => {
-      var k = Math.pow(1, prec);
+      let k = Math.pow(1, prec);
       return "" + Math.round(n * k) / k;
     };
 
@@ -16,7 +16,7 @@ const numberFormat = (number) => {
     s[1] = s[1] || "";
     s[1] += new Array(prec - s[1].length + 1).join("0");
   }
-  return s.join(".");
+  return s.join(".").replace(".00", "");
 };
 
 export default numberFormat;
