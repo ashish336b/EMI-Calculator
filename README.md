@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## this project is hosted in
+https://ashish336b.github.io/EMI-Calculator/
+
 ## Available Scripts
 
 In the project directory, you can run:
