@@ -7,7 +7,7 @@ export default class Navbar extends Component {
         <section className="nav-container">
           <ul className="nav bg-info p-3 justify-content-center">
             <div className="nav-item">
-              <h4 className="text-light">{this.props.title}</h4>
+              <h4 className="text-light text-uppercase">{this.props.title}</h4>
             </div>
           </ul>
         </section>

@@ -1,6 +1,5 @@
-import { parse } from "path";
 import React, { Component } from "react";
-
+import numberFormat from "../helper/numberFormat";
 export default class Body extends Component {
   constructor(props) {
     super(props);
@@ -72,59 +71,74 @@ export default class Body extends Component {
     });
     return (
       <div>
-        <section className="form-container py-3">
+        <section className="body-section py-3">
           <div className="container-fluid">
-            <div className="row">
-              <div className="col-lg-8">
+            <div className="row  justify-content-center">
+              <div className="col-lg-10">
                 <div className="card">
                   <div className="card-body">
                     <div className="row">
                       <div className="col-lg-6">
-                        <div className="form-group py-2">
-                          <label className="pr-3">Principle :</label>
-                          <input
-                            className="form-control"
-                            value={this.state.principal}
-                            onChange={this.setPrincipal}
-                            onBlur={this.calculateEmi}
-                            type="number"
-                            placeholder="Principal Amount"
-                          />
+                        <h5 className="card-title text-center font-weight-bold text-primary">
+                          Calculate Home Loan
+                        </h5>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="form-container">
+                          <div className="form-group py-2">
+                            <label className="font-weight-bold">
+                              Loan Amount :
+                            </label>
+                            <input
+                              className="form-control"
+                              value={this.state.principal}
+                              onChange={this.setPrincipal}
+                              onBlur={this.calculateEmi}
+                              type="number"
+                              placeholder="Principal Amount"
+                            />
+                          </div>
+                          <div className="form-group py-2">
+                            <label className="font-weight-bold">
+                              Interest Rate :
+                            </label>
+                            <input
+                              className="form-control"
+                              onChange={this.setRate}
+                              onBlur={this.calculateEmi}
+                              value={this.state.rate}
+                              type="number"
+                              placeholder="Interest"
+                            />
+                          </div>
+                          <div className="form-group py-2">
+                            <label className="font-weight-bold">
+                              Loan Tenure :
+                            </label>
+                            <input
+                              className="form-control"
+                              type="number"
+                              onChange={this.setTime}
+                              value={this.state.time}
+                              onBlur={this.calculateEmi}
+                              placeholder="Time"
+                            />
+                          </div>
+                          <button
+                            className="btn btn-success btn-block font-weight-bold"
+                            onClick={this.calculateEmi}
+                          >
+                            Calculate
+                          </button>
                         </div>
-                        <div className="form-group py-2">
-                          <label className="pr-3">Interest Rate :</label>
-                          <input
-                            className="form-control"
-                            onChange={this.setRate}
-                            onBlur={this.calculateEmi}
-                            value={this.state.rate}
-                            type="number"
-                            placeholder="Interest"
-                          />
-                        </div>
-                        <div className="form-group py-2">
-                          <label className="pr-3">Time</label>
-                          <input
-                            className="form-control"
-                            type="number"
-                            onChange={this.setTime}
-                            value={this.state.time}
-                            onBlur={this.calculateEmi}
-                            placeholder="Time"
-                          />
-                        </div>
-                        <button
-                          className="btn btn-info"
-                          onClick={this.calculateEmi}
-                        >
-                          Calculate
-                        </button>
                       </div>
                       <div className="col-lg-6">
                         <div className="border p-1 m-3">
                           <h5 className="text-center">Loan EMI</h5>
                           <p className="text-center">
-                            Rs. {this.state.totalEmi}
+                            Rs. {numberFormat(this.state.totalEmi)}
                           </p>
                         </div>
                         <div className="border p-1 m-3">
@@ -143,20 +157,29 @@ export default class Body extends Component {
                 </div>
               </div>
             </div>
-            <div className="row">
-              <div className="container-fluid p-3">
-                <table className="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Month</th>
-                      <th>Principal</th>
-                      <th>Interest</th>
-                      <th>Total Payment</th>
-                      <th>Balance</th>
-                    </tr>
-                  </thead>
-                  <tbody>{tableItem}</tbody>
-                </table>
+            <div className="row justify-content-center pt-3">
+              <div className="col-lg-10">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 class="card-title text-center">
+                      Loan Amortization Table
+                    </h5>
+                    <div className="container-fluid p-3">
+                      <table className="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Month</th>
+                            <th>Principal</th>
+                            <th>Interest</th>
+                            <th>Total Payment</th>
+                            <th>Balance</th>
+                          </tr>
+                        </thead>
+                        <tbody>{tableItem}</tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
