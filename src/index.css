@@ -29,3 +29,12 @@ code {
 .form-container .badge {
   letter-spacing: 2px;
 }
+
+.result-container h5 {
+  font-size: 1.6rem;
+  color: rgb(4, 24, 112);
+}
+.result-container p {
+  font-size: 1.3rem;
+  font-weight: 400;
+}

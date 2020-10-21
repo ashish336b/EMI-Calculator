@@ -9,6 +9,8 @@ export default class Body extends Component {
       time: "3",
       totalEmi: "",
       tableData: [],
+      totalInterestPayable: "0",
+      totalPayment: "0",
     };
   }
   setPrincipal = (event) => {
@@ -33,25 +35,31 @@ export default class Body extends Component {
     let principalPaid = e - interest;
     let remainingBalance = this.state.principal - principalPaid;
     tableData.push({
-      interest: parseFloat(interest).toFixed(2),
-      principal: parseFloat(principalPaid).toFixed(2),
-      remainingBalance: parseFloat(remainingBalance).toFixed(2),
-      totalPaid: parseFloat(e).toFixed(2),
+      interest: interest,
+      principal: principalPaid,
+      remainingBalance: remainingBalance,
+      totalPaid: e,
     });
     for (let i = 1; i < this.state.time; i++) {
       interest = monthlyRate * remainingBalance;
       principalPaid = e - interest;
       remainingBalance = remainingBalance - principalPaid;
       tableData.push({
-        interest: parseFloat(interest).toFixed(2),
-        principal: parseFloat(principalPaid).toFixed(2),
-        remainingBalance: parseFloat(remainingBalance).toFixed(2),
-        totalPaid: parseFloat(e).toFixed(2),
+        interest: interest,
+        principal: principalPaid,
+        remainingBalance: remainingBalance,
+        totalPaid: e,
       });
     }
+    let totalInterestPayable = tableData.reduce((acc, curr) => {
+      console.log(curr.interest);
+      return acc + Number(curr.interest);
+    }, 0);
+    console.log(totalInterestPayable);
     this.setState({
       totalEmi: parseFloat(e).toFixed(2),
       tableData: tableData,
+      totalInterestPayable: totalInterestPayable,
     });
   };
   componentDidMount() {
@@ -77,13 +85,9 @@ export default class Body extends Component {
               <div className="col-lg-10">
                 <div className="card">
                   <div className="card-body">
-                    <div className="row">
-                      <div className="col-lg-6">
-                        <h5 className="card-title text-center font-weight-bold text-primary">
-                          Calculate Home Loan
-                        </h5>
-                      </div>
-                    </div>
+                    <h5 className="card-title text-center font-weight-bold text-primary">
+                      Calculate Home Loan
+                    </h5>
                     <div className="row">
                       <div className="col-lg-6">
                         <div className="form-container">
@@ -135,21 +139,32 @@ export default class Body extends Component {
                         </div>
                       </div>
                       <div className="col-lg-6">
-                        <div className="border p-1 m-3">
-                          <h5 className="text-center">Loan EMI</h5>
-                          <p className="text-center">
-                            Rs. {numberFormat(this.state.totalEmi)}
-                          </p>
-                        </div>
-                        <div className="border p-1 m-3">
-                          <h5 className="text-center">
-                            Total Interest Payable
-                          </h5>
-                          <p className="text-center">Rs. 1000</p>
-                        </div>
-                        <div className="border p-1 m-3">
-                          <h5 className="text-center">Total Payment</h5>
-                          <p className="text-center">Rs. 1000</p>
+                        <div className="result-container">
+                          <div className="border p-1 m-3">
+                            <h5 className="text-center">Loan EMI</h5>
+                            <p className="text-center">
+                              Rs.{numberFormat(this.state.totalEmi)}
+                            </p>
+                          </div>
+                          <div className="border p-1 m-3">
+                            <h5 className="text-center">
+                              Total Interest Payable
+                            </h5>
+                            <p className="text-center">
+                              Rs.
+                              {numberFormat(this.state.totalInterestPayable)}
+                            </p>
+                          </div>
+                          <div className="border p-1 m-3">
+                            <h5 className="text-center">Total Payment</h5>
+                            <p className="text-center">
+                              Rs.
+                              {numberFormat(
+                                Number(this.state.totalInterestPayable) +
+                                  Number(this.state.principal)
+                              )}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -161,7 +176,7 @@ export default class Body extends Component {
               <div className="col-lg-10">
                 <div className="card">
                   <div className="card-body">
-                    <h5 class="card-title text-center">
+                    <h5 className="card-title text-center font-weight-bold text-primary">
                       Loan Amortization Table
                     </h5>
                     <div className="container-fluid p-3">
