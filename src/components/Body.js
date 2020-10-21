@@ -161,7 +161,7 @@ export default class Body extends Component {
                             />
                           </div>
                           <button
-                            className="btn btn-success btn-block font-weight-bold"
+                            className="btn btn-info btn-block font-weight-bold"
                             onClick={this.calculateEmi}
                           >
                             Calculate
@@ -227,18 +227,20 @@ export default class Body extends Component {
                       Loan Amortization Table
                     </h5>
                     <div className="container-fluid p-3">
-                      <table className="table table-bordered table-striped table-sm">
-                        <thead>
-                          <tr>
-                            <th>Month</th>
-                            <th className="bg-danger text-white">Principal</th>
-                            <th>Interest</th>
-                            <th>Total Payment</th>
-                            <th>Balance</th>
-                          </tr>
-                        </thead>
-                        <tbody>{tableItem}</tbody>
-                      </table>
+                      <div className="table-responsive">
+                        <table className="table table-bordered table-striped table-sm">
+                          <thead>
+                            <tr className="bg-warning text-dark">
+                              <th>Month</th>
+                              <th>Principal (A)</th>
+                              <th>Interest (B)</th>
+                              <th>Total Payment (A + B)</th>
+                              <th>Balance</th>
+                            </tr>
+                          </thead>
+                          <tbody className="">{tableItem}</tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
