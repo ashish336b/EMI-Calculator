@@ -1,4 +1,4 @@
-## this project is hosted in
+# This project is hosted in github pages.
 https://ashish336b.github.io/EMI-Calculator/
 
 # Run Project on you machine
@@ -7,7 +7,7 @@ https://ashish336b.github.io/EMI-Calculator/
 ```bash
 npm install
 ```
->> After installing all dependency then run
+### After installing all dependency then run
 ```bash
 npm start
 ```
