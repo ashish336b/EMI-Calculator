@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import numberFormat from "../helper/numberFormat";
 import pie from "chart.js";
+import LoanTable from "./LoanTable";
+import Result from "./Result";
 export default class Body extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      principal: "250000",
-      rate: "10",
-      time: "3",
+      principal: "2500000",
+      rate: "10.5",
+      time: "15",
       totalEmi: "",
       tableData: [],
       totalInterestPayable: "0",
@@ -69,6 +70,7 @@ export default class Body extends Component {
       },
       () => {
         var ctx = document.getElementById("pieChart");
+        ctx.height = 300;
         if (window.chart) {
           window.chart.destroy();
         }
@@ -87,7 +89,9 @@ export default class Body extends Component {
               },
             ],
           },
-          options: {},
+          options: {
+            maintainAspectRatio: false,
+          },
         });
       }
     );
@@ -96,17 +100,6 @@ export default class Body extends Component {
     this.calculateEmi();
   }
   render() {
-    const tableItem = this.state.tableData.map((el, i) => {
-      return (
-        <tr key={i}>
-          <td>{i + 1}</td>
-          <td>{numberFormat(el.principal)}</td>
-          <td>{numberFormat(el.interest)}</td>
-          <td>{numberFormat(el.totalPaid)}</td>
-          <td>{numberFormat(el.remainingBalance)}</td>
-        </tr>
-      );
-    });
     return (
       <div>
         <section className="body-section py-3">
@@ -149,7 +142,7 @@ export default class Body extends Component {
                           </div>
                           <div className="form-group py-2">
                             <label className="font-weight-bold">
-                              Loan Tenure :
+                              Loan Tenure (month) :
                             </label>
                             <input
                               className="form-control"
@@ -169,34 +162,11 @@ export default class Body extends Component {
                         </div>
                       </div>
                       <div className="col-lg-6">
-                        <div className="result-container">
-                          <div className="border p-1 m-3">
-                            <h5 className="text-center">Loan EMI</h5>
-                            <p className="text-center">
-                              Rs.{numberFormat(this.state.totalEmi)}
-                            </p>
-                          </div>
-                          <div className="border p-1 m-3">
-                            <h5 className="text-center">
-                              Total Interest Payable
-                            </h5>
-                            <p className="text-center">
-                              Rs.
-                              {numberFormat(this.state.totalInterestPayable)}
-                            </p>
-                          </div>
-
-                          <div className="border p-1 m-3">
-                            <h5 className="text-center">Total Payment</h5>
-                            <p className="text-center">
-                              Rs.
-                              {numberFormat(
-                                Number(this.state.totalInterestPayable) +
-                                  Number(this.state.principal)
-                              )}
-                            </p>
-                          </div>
-                        </div>
+                        <Result
+                          totalEmi={this.state.totalEmi}
+                          totalInterestPayable={this.state.totalInterestPayable}
+                          principal={this.state.principal}
+                        />
                       </div>
                     </div>
                   </div>
@@ -212,7 +182,7 @@ export default class Body extends Component {
                     </h5>
                     <div className="chart-container p-3">
                       <div className="chart-container">
-                        <canvas id="pieChart" width="400" height="100"></canvas>
+                        <canvas id="pieChart"></canvas>
                       </div>
                     </div>
                   </div>
@@ -221,29 +191,7 @@ export default class Body extends Component {
             </div>
             <div className="row justify-content-center pt-3">
               <div className="col-lg-10">
-                <div className="card">
-                  <div className="card-body">
-                    <h5 className="card-title text-center font-weight-bold text-primary">
-                      Loan Amortization Table
-                    </h5>
-                    <div className="container-fluid p-3">
-                      <div className="table-responsive">
-                        <table className="table table-bordered table-striped table-sm">
-                          <thead>
-                            <tr className="bg-warning text-dark">
-                              <th>Month</th>
-                              <th>Principal (A)</th>
-                              <th>Interest (B)</th>
-                              <th>Total Payment (A + B)</th>
-                              <th>Balance</th>
-                            </tr>
-                          </thead>
-                          <tbody className="">{tableItem}</tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <LoanTable tableData={this.state.tableData} />
               </div>
             </div>
           </div>

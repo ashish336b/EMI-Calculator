@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Body from "./components/Body";
-import Navbar from "./components/Navbar";
+import Body from "./components/Body.jsx";
+import Navbar from "./components/Navbar.jsx";
 export class App extends Component {
   constructor(props) {
     super(props);
